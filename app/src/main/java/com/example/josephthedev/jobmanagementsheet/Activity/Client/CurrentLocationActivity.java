@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -88,6 +89,9 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     private AddrLocation addrLocation;
     private Intent intent;
     private Contact contact = new Contact();
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "JSMA-Contact" ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +129,19 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
                     public void onClick(DialogInterface arg0, int arg1) {
                         if (phoneBox.length() == 0 && phoneBox.isFocused()){
                             phoneBox.setError("Phone Number cannot be empty");
-                        } else {
+                        } else if (validatePhoneNumber(phoneBox.getText().toString())) {
                             contact.setPhoneNumber(phoneBox.getText().toString());
+                            sharedpreferences = getSharedPreferences("JSMA-Contact", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+
                             intent = new Intent(getApplicationContext(), SetJobActivity.class);
+                            intent.putExtra("Latitude", String.valueOf(addrLocation.getLatitude()));
+                            intent.putExtra("Longitude", String.valueOf(addrLocation.getLatitude()));
+                            intent.putExtra("PhoneNumber", contact.getPhoneNumber());
+                            intent.putExtra("Name", addrLocation.getName());
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Invalid phone number", Toast.LENGTH_LONG);
                         }
                     }
                 });
@@ -288,11 +301,9 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
             addrLocation.setLatitude(latitude);
             addrLocation.setLongitude(longitude);
             String address = getAddressFromLocation(latitude, longitude, CurrentLocationActivity.this);
-            String phoneNum = getPhoneNuber();
-
             addrLocation.setName(address);
 
-            Log.d("Location", address);
+            //Log.d("Location", address);
 
         }
 
@@ -369,5 +380,19 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         String pNumber = tm.getLine1Number();
 
         return pNumber;
+    }
+
+    private static boolean validatePhoneNumber(String phoneNo) {
+        //validate phone numbers of format "1234567890"
+        if (phoneNo.matches("\\d{10}")) return true;
+            //validating phone number with -, . or spaces
+        else if(phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+            //validating phone number with extension length from 3 to 5
+        else if(phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
+            //validating phone number where area code is in braces ()
+        else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+            //return false if nothing matches the input
+        else return false;
+
     }
 }

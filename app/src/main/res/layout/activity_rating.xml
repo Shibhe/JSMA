@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d5dbdb"
+    tools:context=".Activity.Client.RatingActivity">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_marginRight="10dp"
+       android:layout_marginTop="50dp"
+       android:layout_marginLeft="10dp"
+       android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_weight="1"
+           android:id="@+id/thanks"
+           android:layout_marginBottom="15dp"
+           android:divider="?android:dividerHorizontal"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:showDividers="middle">
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="28sp"
+               android:gravity="center"
+               android:text="Thank you"/>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:layout_below="@+id/thanks"
+           android:id="@+id/letUs"
+           android:layout_marginBottom="15dp"
+           android:gravity="center"
+           android:layout_gravity="center"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:textSize="19sp"
+               android:text="LET US KNOW HOW IT WENT"/>
+
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_below="@+id/letUs"
+           android:layout_gravity="center"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:textSize="15sp"
+               android:text="What could've we done better?"/>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_below="@+id/letUs"
+           android:layout_gravity="center"
+           android:gravity="center"
+           android:id="@+id/rate"
+           android:layout_marginTop="70dp"
+           android:orientation="vertical"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:textStyle="bold"
+               android:textSize="20sp"
+               android:text="RATING"/>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_below="@+id/rate"
+           android:layout_gravity="center"
+           android:gravity="center"
+
+           android:layout_marginTop="10dp"
+           android:orientation="vertical"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/rate_me"
+               android:text="Poor"
+               android:textStyle="bold|italic"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18dp"/>
+
+           <RatingBar
+               android:id="@+id/ratingBar"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/rate_me"
+               android:numStars="5"
+               android:stepSize="1.0" />
+       </LinearLayout>
+
+   </RelativeLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="5dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_height="wrap_content">
+      <Button
+          android:id="@+id/submit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Submit"
+          android:background="@drawable/login" />
+  </LinearLayout>
+</RelativeLayout>
